@@ -1,5 +1,7 @@
 # F.Lab's DIYbio Centrifuge
 
+![demo](doc/4RVZx7.gif)
+
 This a remix of [F.Lab's DIYbio Centrifuge](https://www.thingiverse.com/thing:1175393) with the following changes:
 
   * Uses a [Digispark](http://digistump.com/products/1) (or clone) ATTiny85 board instead of an Arduino
