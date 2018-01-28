@@ -34,6 +34,10 @@ Make sure no components are connected while uploading to the Digispark. Do the u
 
 ![Schematic](doc/schematic.png)
 
+## Original instructions
+
+[Instructables](http://www.instructables.com/id/3D-Printed-DIYbio-Mini-Centrifuge/)
+
 ## Attribution
 
 The included STL files and the whole project were originally created by [F.Lab](https://www.facebook.com/FLabDIYbioThailand/).
