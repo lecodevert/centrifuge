@@ -23,7 +23,7 @@ module motor_hole() {
 }
 
 module pot_hole() {
-    cylinder(d=7.5, h=10);
+    translate([0, 0, -5]) cylinder(d=7.5, h=15);
     translate([7.8, 0, 0]) cube([2, 3, 10], center=true);
 }
 
@@ -34,6 +34,8 @@ module usb_hole() {
 module barrel_jack_mount() {
     difference() {
         union() {
+            /* clearance */
+            translate([0, 0, -3]) cylinder(d=7, h=3);
             cylinder(d=7, h=3);
             translate([0, 0, 13.5]) {
                 cube([13, 11, 22], center=true);
@@ -46,7 +48,7 @@ module barrel_jack_mount() {
                     translate([0, 0, 11.5 - 4]) {
                         cube([11, 12, 4], center=true);
                         /* clearance */
-                        translate([0, 0, 4]) cube([11, 12, 10], center=true);
+                        translate([0, 0, 21]) cube([11, 12, 40], center=true);
                     }
                 }
             }
@@ -63,7 +65,7 @@ module switch_hole() {
 
 module base_hinge() {
     cylinder(d=10, h=40, center=true);
-    cylinder(d=3.2, h=lid_dia, center=true);
+    cylinder(d=3.2, h=lid_dia + 1, center=true);
 }
 
 module base() {
@@ -72,6 +74,7 @@ module base() {
             cylinder(d=base_dia, h=base_thi);
             translate([-base_dia/2, 0, 0]) cube([lid_dia, hinge_depth, base_thi + base_hei]);
             translate([0, 0, base_thi]) cylinder(d=base_dia, h=base_hei);
+            translate([0, -base_dia/2 + base_thi /2, 15]) cube([6, 4, 6], center=true);
         }
         // Center hole for motor (axle may stick out a bit)
         cylinder(d=9, h=base_thi);
@@ -90,10 +93,19 @@ module base() {
         translate([0, hinge_depth - hinge_thi/2, base_hei + base_thi - 3]) rotate([0, 90, 0]) base_hinge();
         translate([0, lid_dia/2, 15]) usb_hole();
         for(i=[-1,1]) {
-            translate([i* 30, 35, base_hei/2 + base_thi/2]) cube([40, 50, base_hei - base_thi/2], center=true);
+            translate([i* 30, 35, base_hei/2]) cube([40, 50, base_hei - base_thi * 2], center=true);
         }
+        // Latch hole
+        translate([0, -base_dia/2 + base_thi /2, 15]) rotate([90, 0, 0]) cylinder(d=4.2, h=10, center=true);
     }
 
+}
+
+module latch_hook() {
+    difference() {
+        rotate_extrude(angle=90) translate([4, 0, 0]) circle(d=3);
+        translate([-10, 0, -5]) cube([20, 10, 10]);
+    }
 }
 
 
@@ -106,6 +118,7 @@ module lid() {
             translate([-lid_dia/2, 0, 0]) cube([lid_dia, hinge_depth - hinge_rad, hinge_rad * 2]);
             translate([0, hinge_depth - hinge_thi/2, 3]) cube([39, hinge_thi, 12], center=true);
             translate([0, hinge_depth - hinge_thi/2, -3.25]) rotate([0, 90, 0]) cylinder(d=hinge_thi, h=39, center=true);
+            translate([0, -lid_dia/2, 6]) rotate([0, 90, 0]) latch_hook();
         }
         translate([0, 0, 0]) cylinder(d=lid_dia - lid_wall_thi, h=lid_height - lid_wall_thi);
         translate([0, 0, 0]) cylinder(d=lid_dia - 8, h=lid_height);
@@ -115,3 +128,5 @@ module lid() {
 
 base();
 /* translate([0, 0, base_hei + base_thi]) lid(); */
+/* barrel_jack_mount(); */
+
