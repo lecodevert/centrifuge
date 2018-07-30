@@ -125,6 +125,7 @@ module lid() {
         translate([0, 0, 0]) cylinder(d=lid_dia - lid_wall_thi, h=lid_height - lid_wall_thi);
         translate([0, 0, 0]) cylinder(d=lid_dia - 8, h=lid_height);
         translate([0, hinge_depth - hinge_thi/2, -3.25]) rotate([0, 90, 0]) cylinder(d=3.2, h=100, center=true);
+        translate([0, lid_dia/2 + 9, lid_height/2]) cube([inner_dia, 20, lid_height - 6], center=true);
     }
 }
 
@@ -132,4 +133,5 @@ module lid() {
 translate([0, 0, base_hei + base_thi]) lid();
 /* barrel_jack_mount(); */
 
-latch_hook();
+/* latch_hook(); */
+/* lid(); */
