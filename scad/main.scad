@@ -129,9 +129,19 @@ module lid() {
     }
 }
 
-/* base(); */
-translate([0, 0, base_hei + base_thi]) lid();
-/* barrel_jack_mount(); */
+module latch() {
+    difference() {
+        union() {
+            cylinder(d=10, h=2);
+            translate([0, 1, 0]) cube([15, 4, 2]);
+            translate([9.5, -2, 0]) cube([5.5, 4, 2]);
+        }
+        cylinder(d=4.2, h=2);
+            translate([9.5, -1, 0]) cube([0.5, 2, 2]);
+    }
+}
 
-/* latch_hook(); */
-/* lid(); */
+base();
+translate([0, 0, base_hei + base_thi]) lid();
+translate([0, -base_dia/2 + base_thi /2 -2, 15]) rotate([90, 270, 0]) latch();
+
