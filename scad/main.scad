@@ -12,8 +12,12 @@ hinge_rad = 10;
 hinge_depth = 75;
 hinge_thi = 5;
 
-
 $fn = 100;
+
+draw_complete = 1;
+draw_base = 0;
+draw_lid = 0;
+draw_latch = 0;
 
 module motor_hole() {
     hull() {
@@ -141,7 +145,12 @@ module latch() {
     }
 }
 
-base();
-translate([0, 0, base_hei + base_thi]) lid();
-translate([0, -base_dia/2 + base_thi /2 -2, 15]) rotate([90, 270, 0]) latch();
+if (draw_complete == 1) {
+    base();
+    translate([0, 0, base_hei + base_thi]) lid();
+    translate([0, -base_dia/2 + base_thi /2 -2, 15]) rotate([90, 270, 0]) latch();
+}
 
+if (draw_lid == 1) rotate([0, 180, 0]) lid();
+if (draw_base == 1) base();
+if (draw_latch == 1) latch();
