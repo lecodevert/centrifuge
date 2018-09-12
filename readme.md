@@ -1,11 +1,4 @@
-# F.Lab's DIYbio Centrifuge
-
-![demo](doc/4RVZx7.gif)
-
-This a remix of [F.Lab's DIYbio Centrifuge](https://www.thingiverse.com/thing:1175393) with the following changes:
-
-  * Uses a [Digispark](http://digistump.com/products/1) (or clone) ATTiny85 board instead of an Arduino
-  * The STL files were repaired as they were made from Sketchup and were not usable with Slic3r
+# Physique sans Frontières Centrifuge
 
 ## Bill of Materials
 
@@ -34,10 +27,9 @@ Make sure no components are connected while uploading to the Digispark. Do the u
 
 ![Schematic](doc/schematic.png)
 
-## Original instructions
+## Instruction
 
-[Instructables](http://www.instructables.com/id/3D-Printed-DIYbio-Mini-Centrifuge/)
 
 ## Attribution
 
-The included STL files and the whole project were originally created by [F.Lab](https://www.facebook.com/FLabDIYbioThailand/).
+The rotor comes from Biohack Academy's OpenFuge
