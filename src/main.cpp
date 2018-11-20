@@ -11,13 +11,18 @@ void setup() {
   OCR0A = 0xAF;             // any number is OK
   TIMSK |= _BV(OCIE0A);     // Turn on the compare interrupt (below!)
   servo.attach(SERVOPIN);
+
+  servo.write(180);
+  delay(10000);
+  servo.write(0);
+  delay(10000);
 }
 
 void loop() {
   int potValue;
   int speed;
   potValue = analogRead(POTPIN);
-  speed = map(potValue, 0, 1023, 0, 100);
+  speed = map(potValue, 0, 1023, 0, 180);
   servo.write(speed);
   delay(15);
 }
