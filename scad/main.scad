@@ -19,6 +19,9 @@ draw_base = 0;
 draw_lid = 0;
 draw_latch = 0;
 
+text1 = "Physique sans";
+text2 = "Frontières";
+
 module motor_hole() {
     hull() {
         cylinder(d=3, h=base_thi);
@@ -126,6 +129,8 @@ module lid() {
             translate([0, hinge_depth - hinge_thi/2, -3.25]) rotate([0, 90, 0]) cylinder(d=hinge_thi, h=39, center=true);
             translate([0, -lid_dia/2, 5]) rotate([0, 90, 0]) latch_hook();
         }
+        translate([0, lid_dia/2 + 11, lid_height]) linear_extrude(height=1) text(text1, size=8, halign="center");
+        translate([0, lid_dia/2, lid_height]) linear_extrude(height=1) text(text2, size=8, halign="center");
         translate([0, 0, 0]) cylinder(d=lid_dia - lid_wall_thi, h=lid_height - lid_wall_thi);
         translate([0, 0, 0]) cylinder(d=lid_dia - 8, h=lid_height);
         translate([0, hinge_depth - hinge_thi/2, -3.25]) rotate([0, 90, 0]) cylinder(d=3.2, h=100, center=true);
