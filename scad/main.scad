@@ -150,8 +150,8 @@ module lid() {
         }
         translate([0, lid_dia/2 + 11, lid_height]) linear_extrude(height=1) text(text1, size=8, halign="center");
         translate([0, lid_dia/2, lid_height]) linear_extrude(height=1) text(text2, size=8, halign="center");
-        translate([0, 0, 0]) cylinder(d=lid_dia - lid_wall_thi, h=lid_height - lid_wall_thi);
-        translate([0, 0, 0]) cylinder(d=lid_dia - 8, h=lid_height);
+        translate([0, 0, -0.5]) cylinder(d=lid_dia - lid_wall_thi, h=lid_height - lid_wall_thi + 1);
+        translate([0, 0, -0.5]) cylinder(d=lid_dia - 8, h=lid_height + 1);
         translate([0, hinge_depth - hinge_thi/2, -3.25]) rotate([0, 90, 0]) cylinder(d=3.2, h=100, center=true);
         translate([0, lid_dia/2 + 9, lid_height/2]) cube([inner_dia, 20, lid_height - 6], center=true);
     }
@@ -161,6 +161,7 @@ module latch() {
     difference() {
         cylinder(d=knob_dia, h=knob_hei);
         cylinder(d=4.2, h=knob_hei);
+        translate([0, 0, knob_hei - 4]) cylinder(d=7, h=4.1);
         translate([ -5 - (total_base_hei - latch_hole_hei), 0, 0]) rotate([-90, 0, 0]) scale([1.1, 1.1, 1.1]) latch_hook();
         translate([ - 5 - (total_base_hei - latch_hole_hei), - 6, 2.5]) cube([10, 10, 5], center=true);
         // quick and dirty knurling on the knob part for better grip
