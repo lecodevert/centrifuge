@@ -14,7 +14,7 @@ module rotor() {
                 }
 
                 translate([0,0,10]) // raise cone from bottom
-                    cylinder (h = 11, r1 = 16.5, r2 = 30, center = false); // cone
+                    cylinder (h = 11, r1 = 16.5, r2 = 30, center = false);
 
                 translate([0,0,-1])
                     cylinder (h = 12, r=axis_radius); // axis
@@ -31,17 +31,11 @@ module rotor() {
                 }
         }
 
-        //tube holding cylinders on 12, 3, 6 and 9 o'clock
-        translate([-1 * tube_pos,0,-10]) rotate([0,tube_angle,0]) cylinder(h=80, r=tube_radius);
-        translate([tube_pos,0,-10]) rotate([0,-1*tube_angle,0]) cylinder(h=80, r=tube_radius);
-        translate([0,-1 * tube_pos,-10]) rotate([0,tube_angle,90]) cylinder(h=80, r=tube_radius);
-        translate([0,tube_pos,-10]) rotate([0,-1*tube_angle,90]) cylinder(h=80, r=tube_radius);
-
-        //tube holding cylinders in between the previous tubes
-        translate([-1 * tube_pos * cos(45), -1 * tube_pos * sin(45),-10]) rotate([0,tube_angle,45]) cylinder(h=80, r=tube_radius);
-        translate([-1 * tube_pos * cos(45), tube_pos * sin(45),-10]) rotate([0,tube_angle,-45]) cylinder(h=80, r=tube_radius);
-        translate([tube_pos * cos(45), -1 * tube_pos * sin(45),-10]) rotate([0,-1*tube_angle,-45]) cylinder(h=80, r=tube_radius);
-        translate([tube_pos * cos(45), tube_pos * sin(45),-10]) rotate([0,-1*tube_angle,45]) cylinder(h=80, r=tube_radius);
+        //tube holding cylinders
+        for(i = [0: 1: 7]) rotate([0, 0, i * 45])
+            translate([-1 * tube_pos,0,-10])
+                rotate([0, tube_angle, 0])
+                    cylinder(h=80, r=tube_radius);
         // Numbering
         for(i=[1: 1: 8]) {
             rotate([0, 0, -i*45])

@@ -12,7 +12,7 @@ draw_rotor = 0;
 
 if (draw_complete == 1) {
     color("white") base();
-    translate([0, 0, 40]) color("green") rotor();
+    color("green") translate([0, 0, 40]) rotor();
     color("gray") translate([0, 0, base_hei + base_thi]) lid();
     color("red") translate([0, -base_dia/2 + base_thi /2 -2, latch_hole_hei])
         rotate([90, 90, 0]) latch();

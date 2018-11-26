@@ -11,7 +11,7 @@ module pot_hole() {
 }
 
 module usb_hole() {
-    cube([12, 9, 2.5], center=true);
+    cube([12, 9, 2.5 + clearance], center=true);
 }
 
 module barrel_jack_mount() {
@@ -55,10 +55,12 @@ module base() {
     difference() {
         union() {
             cylinder(d=base_dia, h=base_thi);
-            translate([-base_dia/2, 0, 0]) cube([lid_dia, hinge_depth, base_thi + base_hei]);
+            translate([-base_dia/2, 0, 0]) 
+                cube([lid_dia, hinge_depth, base_thi + base_hei]);
             translate([0, 0, base_thi]) cylinder(d=base_dia, h=base_hei);
             // latch knob support
-            translate([0, -base_dia/2 + base_thi /2, latch_hole_hei]) rotate([90, 0, 0]) cylinder(d=8, h=4, center=true);
+            translate([0, -base_dia/2 + base_thi /2, latch_hole_hei])
+                rotate([90, 0, 0]) cylinder(d=8, h=4, center=true);
         }
         // Center hole for motor (axle may stick out a bit)
         cylinder(d=9, h=base_thi);
@@ -68,19 +70,25 @@ module base() {
             // Screw holes for suctions cups
             translate([40, 0, 0]) cylinder(d=4.2, h=base_thi);
         }
-        translate([0, 0, base_thi]) cylinder(d=base_dia - base_thi * 2, h=base_hei + 1);
-        translate([ -lid_dia/2, hinge_depth - 13, base_hei/2]) rotate([0, 90, 0]) barrel_jack_mount();
-        translate([ -lid_dia/2, 45, (base_hei + base_thi)/2]) rotate([0, 90, 0]) switch_hole();
-        /* translate([ 23, 38, base_thi]) cube([25, 30, base_hei - base_thi]); */
-        translate([ lid_dia/2, hinge_depth - 25, base_hei/2 + 1]) rotate([0, 270, 0]) pot_hole();
+        translate([0, 0, base_thi])
+            cylinder(d=base_dia - base_thi * 2, h=base_hei + 1);
+        translate([ -lid_dia/2, hinge_depth - 13, base_hei/2])
+            rotate([0, 90, 0]) barrel_jack_mount();
+        translate([ -lid_dia/2, 45, (base_hei + base_thi)/2])
+            rotate([0, 90, 0]) switch_hole();
+        translate([ lid_dia/2, hinge_depth - 25, base_hei/2 + 1])
+            rotate([0, 270, 0]) pot_hole();
 
-        translate([0, hinge_depth - hinge_thi/2, base_hei + base_thi - 3]) rotate([0, 90, 0]) base_hinge();
+        translate([0, hinge_depth - hinge_thi/2, base_hei + base_thi - 3])
+            rotate([0, 90, 0]) base_hinge();
         translate([0, lid_dia/2, 15]) usb_hole();
-        for(i=[-1,1]) {
-            translate([i* 30, 30, base_hei/2 + base_thi]) cube([40, 60, base_hei], center=true);
-        }
+
+        for(i=[-1,1])
+            translate([i* 30, 30, base_hei/2 + base_thi])
+                cube([40, 60, base_hei], center=true);
         // Latch hole
-        translate([0, -base_dia/2 + base_thi /2, latch_hole_hei]) rotate([90, 0, 0]) cylinder(d=4.2, h=10, center=true);
+        translate([0, -base_dia/2 + base_thi /2, latch_hole_hei])
+            rotate([90, 0, 0]) cylinder(d=4.2, h=10, center=true);
     }
 }
 
