@@ -1,26 +1,45 @@
+clearance = 0.1;
+
 inner_dia = 100;
 
 base_hei = 20;
 base_thi = 3;
+total_base_hei = base_hei + base_thi;
 base_dia = inner_dia + 2 * base_thi;
-
-lid_wall_thi = 3;
-lid_dia = inner_dia + 2 * lid_wall_thi;
-lid_height = 50;
 
 hinge_rad = 10;
 hinge_depth = 75;
 hinge_thi = 5;
 
+knob_hei = 10;
+knob_dia = 20;
+latch_hook_thi = 2;
+latch_hole_hei = 19;
+
+lid_wall_thi = 3;
+lid_dia = inner_dia + 2 * lid_wall_thi;
+lid_height = 50;
+
+rotor_shaft_dia = 4;
+axis_radius = rotor_shaft_dia/20 + clearance; // radius of the motor shaft, in cm
+
+// this section is in cm
+tube_radius = 0.575; // inner radius of the tube holders
+tube_angle = 45; // angle in the rotor
+tube_pos = 4.75; // position of tube holders
+
 $fn = 100;
 
-draw_complete = 1;
+draw_complete = 0;
 draw_base = 0;
 draw_lid = 0;
 draw_latch = 0;
+draw_rotor = 1;
 
 text1 = "Physique sans";
 text2 = "Frontières";
+
+include <rotor.scad>;
 
 module motor_hole() {
     hull() {
@@ -81,7 +100,8 @@ module base() {
             cylinder(d=base_dia, h=base_thi);
             translate([-base_dia/2, 0, 0]) cube([lid_dia, hinge_depth, base_thi + base_hei]);
             translate([0, 0, base_thi]) cylinder(d=base_dia, h=base_hei);
-            translate([0, -base_dia/2 + base_thi /2, 15]) rotate([90, 0, 0]) cylinder(d=8, h=4, center=true);
+            // latch knob support
+            translate([0, -base_dia/2 + base_thi /2, latch_hole_hei]) rotate([90, 0, 0]) cylinder(d=8, h=4, center=true);
         }
         // Center hole for motor (axle may stick out a bit)
         cylinder(d=9, h=base_thi);
@@ -103,17 +123,17 @@ module base() {
             translate([i* 30, 30, base_hei/2 + base_thi]) cube([40, 60, base_hei], center=true);
         }
         // Latch hole
-        translate([0, -base_dia/2 + base_thi /2, 15]) rotate([90, 0, 0]) cylinder(d=4.2, h=10, center=true);
+        translate([0, -base_dia/2 + base_thi /2, latch_hole_hei]) rotate([90, 0, 0]) cylinder(d=4.2, h=10, center=true);
     }
 }
 
 module latch_hook() {
     translate([0, -2.5, 0]) {
         difference() {
-            cube([10, 5, 2], center=true);
-            translate([0, 1, 0]) cube([6, 3, 2], center=true);
+            cube([10, 5, 4], center=true);
+            translate([0, 1, 0]) cube([6, 3, 4], center=true);
         }
-        translate([-5, -2.5, 0]) linear_extrude(height=2, center=true) polygon(points=[[0,0], [0, 5], [-5, 5]]);
+        translate([-5, -2.5, 0]) linear_extrude(height=4, center=true) polygon(points=[[0,0], [0, 5], [-5, 5]]);
     }
 }
 
@@ -140,22 +160,24 @@ module lid() {
 
 module latch() {
     difference() {
-        union() {
-            cylinder(d=10, h=2);
-            translate([0, 1, 0]) cube([15, 4, 2]);
-            translate([9.5, -2, 0]) cube([5.5, 4, 2]);
-        }
-        cylinder(d=4.2, h=2);
-            translate([9.5, -1, 0]) cube([0.5, 2, 2]);
+        cylinder(d=knob_dia, h=knob_hei);
+        cylinder(d=4.2, h=knob_hei);
+        translate([ -5 - (total_base_hei - latch_hole_hei), 0, 0]) rotate([-90, 0, 0]) scale([1.1, 1.1, 1.1]) latch_hook();
+        translate([ - 5 - (total_base_hei - latch_hole_hei), - 6, 2.5]) cube([10, 10, 5], center=true);
+        // quick and dirty knurling on the knob part for better grip
+        for(i = [0 : 18 : 360]) rotate([0, 0, i])
+            translate([knob_dia/2, 0, knob_hei/2 + latch_hook_thi])
+                cube([1, 1, knob_hei], center=true);
     }
 }
 
 if (draw_complete == 1) {
-    base();
-    translate([0, 0, base_hei + base_thi]) lid();
-    translate([0, -base_dia/2 + base_thi /2 -2, 15]) rotate([90, 270, 0]) latch();
+    color("white") base();
+    color("gray")translate([0, 0, base_hei + base_thi]) lid();
+    color("red") translate([0, -base_dia/2 + base_thi /2 -2, latch_hole_hei]) rotate([90, 90, 0]) latch();
 }
 
 if (draw_lid == 1) rotate([0, 180, 0]) lid();
 if (draw_base == 1) base();
 if (draw_latch == 1) latch();
+if (draw_rotor ==1) rotor();
