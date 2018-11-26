@@ -29,11 +29,11 @@ tube_pos = 47.5; // position of tube holders
 
 $fn = 100;
 
-draw_complete = 0;
+draw_complete = 1;
 draw_base = 0;
 draw_lid = 0;
 draw_latch = 0;
-draw_rotor = 1;
+draw_rotor = 0;
 
 text1 = "Physique sans";
 text2 = "Frontières";
@@ -172,6 +172,7 @@ module latch() {
 
 if (draw_complete == 1) {
     color("white") base();
+    translate([0, 0, 40]) color("green") rotor();
     color("gray")translate([0, 0, base_hei + base_thi]) lid();
     color("red") translate([0, -base_dia/2 + base_thi /2 -2, latch_hole_hei]) rotate([90, 90, 0]) latch();
 }

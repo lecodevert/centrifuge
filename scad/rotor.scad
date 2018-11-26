@@ -42,5 +42,12 @@ module rotor() {
         translate([-1 * tube_pos * cos(45), tube_pos * sin(45),-10]) rotate([0,tube_angle,-45]) cylinder(h=80, r=tube_radius);
         translate([tube_pos * cos(45), -1 * tube_pos * sin(45),-10]) rotate([0,-1*tube_angle,-45]) cylinder(h=80, r=tube_radius);
         translate([tube_pos * cos(45), tube_pos * sin(45),-10]) rotate([0,-1*tube_angle,45]) cylinder(h=80, r=tube_radius);
+        // Numbering
+        for(i=[1: 1: 8]) {
+            rotate([0, 0, -i*45])
+            translate([0, 30, 19])
+              linear_extrude(height=2)
+                  text(str(i), halign="center", size=4);
+        }
     }
 }
