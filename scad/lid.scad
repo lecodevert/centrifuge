@@ -1,4 +1,4 @@
-include <ohw_logo.scad>;
+include <oshw_logo.scad>;
 
 module latch_hook() {
     translate([0, -2.5, 0]) {
