@@ -25,7 +25,7 @@ lid_dia = inner_dia + 2 * lid_wall_thi;
 lid_height = 50;
 
 // Rotor
-rotor_shaft_dia = 4;
+rotor_shaft_dia = 5;
 axis_radius = rotor_shaft_dia/2 + clearance; // radius of the motor shaft
 
 tube_radius = 5.75; // inner radius of the tube holders

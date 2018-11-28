@@ -51,7 +51,7 @@ module base_hinge() {
     cylinder(d=3.2, h=lid_dia + 1, center=true);
 }
 
-module base() {
+module base(mount="universal") {
     difference() {
         union() {
             cylinder(d=base_dia, h=base_thi);
@@ -62,14 +62,21 @@ module base() {
             translate([0, -base_dia/2 + base_thi /2, latch_hole_hei])
                 rotate([90, 0, 0]) cylinder(d=8, h=4, center=true);
         }
-        // Center hole for motor (axle may stick out a bit)
-        cylinder(d=9, h=base_thi);
-        for(i = [0:90:270]) rotate([0, 0, i]) {
+        if (mount == "universal") {
+            // Center hole for motor (axle may stick out a bit)
+            cylinder(d=9, h=base_thi);
             // Motor mounting slits
-            translate([6.5, 0, 0]) motor_hole();
-            // Screw holes for suctions cups
-            translate([40, 0, 0]) cylinder(d=4.2, h=base_thi);
+            for(i = [0:90:270])
+                rotate([0, 0, i])
+                    translate([6.5, 0, 0]) motor_hole();
+        } else {
+            translate([0, 0, -0.5])
+                cylinder(d=26, h=base_thi + 1);
         }
+        // Screw holes for suctions cups
+        for(i = [0:90:270]) rotate([0, 0, i])
+            translate([40, 0, -0.5])
+                cylinder(d=4.2, h=base_thi + 1);
         translate([0, 0, base_thi])
             cylinder(d=base_dia - base_thi * 2, h=base_hei + 1);
         translate([ -lid_dia/2, hinge_depth - 13, base_hei/2])
@@ -84,11 +91,13 @@ module base() {
         translate([0, lid_dia/2, 15]) usb_hole();
 
         for(i=[-1,1])
-            translate([i* 30, 30, base_hei/2 + base_thi])
-                cube([40, 60, base_hei], center=true);
+            translate([i* 30, 30, base_hei/2 + base_thi + 0.5])
+                cube([40, 60, base_hei + 1], center=true);
         // Latch hole
         translate([0, -base_dia/2 + base_thi /2, latch_hole_hei])
             rotate([90, 0, 0]) cylinder(d=4.2, h=10, center=true);
     }
+    if (mount == "small")
+        motor_spacer(h=20 + base_thi, mount="small");
 }
 

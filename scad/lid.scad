@@ -1,3 +1,5 @@
+include <ohw_logo.scad>;
+
 module latch_hook() {
     translate([0, -2.5, 0]) {
         difference() {
@@ -10,7 +12,7 @@ module latch_hook() {
     }
 }
 
-module lid() {
+module lid(window = true) {
     difference() {
         union() {
             cylinder(d=lid_dia, h=lid_height);
@@ -27,16 +29,25 @@ module lid() {
                 rotate([0, 90, 0]) cylinder(d=hinge_thi, h=39, center=true);
             translate([0, -lid_dia/2, 5]) rotate([0, 90, 0]) latch_hook();
         }
-        translate([0, lid_dia/2 + 11, lid_height])
-            linear_extrude(height=1)
+        translate([0, lid_dia/2 + 11, lid_height - 1.9])
+            linear_extrude(height=2)
                 text(text1, size=8, halign="center");
-        translate([0, lid_dia/2, lid_height])
-            linear_extrude(height=1)
+        translate([0, lid_dia/2, lid_height - 1.9])
+            linear_extrude(height=2)
                 text(text2, size=8, halign="center");
         translate([0, 0, -0.5])
             cylinder(d=lid_dia - lid_wall_thi, h=lid_height - lid_wall_thi + 1);
-        translate([0, 0, -0.5])
-            cylinder(d=lid_dia - 8, h=lid_height + 1);
+        if (window) {
+            translate([0, 0, -0.5])
+                cylinder(d=lid_dia - 8, h=lid_height + 1);
+        } else {
+            translate([0, 0, lid_height - 1])
+              linear_extrude(height=1.1)
+                difference() {
+                        offset(r=2) oshw_logo_2d(0.50);
+                        offset(r=0) oshw_logo_2d(0.50);
+                }
+        }
         translate([0, hinge_depth - hinge_thi/2, -3.25])
             rotate([0, 90, 0])
                 cylinder(d=3.2, h=100, center=true);
