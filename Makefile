@@ -1,20 +1,30 @@
 oscad = /Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD
 main = scad/main.scad
+config = scad/config.scad
 output_dir = stl/
 
-all:$(output_dir)base.stl $(output_dir)lid.stl $(output_dir)latch.stl $(output_dir)rotor.stl
+all:$(output_dir)base_universal.stl $(output_dir)base_small_motor.stl $(output_dir)lid_window.stl $(output_dir)lid_no_window.stl $(output_dir)latch.stl $(output_dir)rotor.stl $(output_dir)motor_spacer.stl
 
-$(output_dir)rotor.stl: $(main)
-	$(oscad) -o $@ -D draw_complete=0 -D draw_lid=0 -D draw_latch=0 -D draw_base=0 -D draw_rotor=1 $(main)
+$(output_dir)rotor.stl: $(config) $(main) scad/rotor.scad
+	$(oscad) -o $@ -D draw_complete=0 -D draw_rotor=1 $(main)
 
-$(output_dir)base.stl: $(main)
-	$(oscad) -o $@ -D draw_complete=0 -D draw_lid=0 -D draw_latch=0 -D draw_base=1 -D draw_rotor=0 $(main)
+$(output_dir)base_universal.stl: $(config) $(main) scad/base.scad
+	$(oscad) -o $@ -D draw_complete=0 -D draw_base_universal=1 $(main)
 
-$(output_dir)latch.stl: $(main)
-	$(oscad) -o $@ -D draw_complete=0 -D draw_lid=0 -D draw_latch=1 -D draw_base=0 -D draw_rotor=0 $(main)
+$(output_dir)base_small_motor.stl: $(config) $(main) scad/base.scad
+	$(oscad) -o $@ -D draw_complete=0 -D draw_base_small_motor=1 $(main)
 
-$(output_dir)lid.stl: $(main)
-	$(oscad) -o $@ -D draw_complete=0 -D draw_lid=1 -D draw_latch=0 -D draw_base=0 -D draw_rotor=0 $(main)
+$(output_dir)latch.stl: $(config) $(main) scad/latch.scad
+	$(oscad) -o $@ -D draw_complete=0 -D draw_latch=1 $(main)
+
+$(output_dir)lid_window.stl: $(config) $(main) scad/lid.scad
+	$(oscad) -o $@ -D draw_complete=0 -D draw_lid_window=1 $(main)
+
+$(output_dir)lid_no_window.stl: $(config) $(main) scad/lid.scad
+	$(oscad) -o $@ -D draw_complete=0 -D draw_lid_no_window=1 $(main)
+
+$(output_dir)motor_spacer.stl: $(config) $(main) scad/motor_spacer.scad
+	$(oscad) -o $@ -D draw_complete=0 -D draw_motor_spacer=1 $(main)
 
 clean:
 	rm $(output_dir)*.stl
