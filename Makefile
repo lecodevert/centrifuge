@@ -26,5 +26,9 @@ $(output_dir)lid_no_window.stl: $(config) $(main) scad/lid.scad
 $(output_dir)motor_spacer.stl: $(config) $(main) scad/motor_spacer.scad
 	$(oscad) -o $@ -D draw_complete=0 -D draw_motor_spacer=1 $(main)
 
+dxf/window.dxf: $(config) $(main) scad/window.scad
+	$(oscad) -o $@ -D draw_complete=0 -D draw_window=1 $(main)
+
 clean:
 	rm $(output_dir)*.stl
+	rm dxf/*.dxf
