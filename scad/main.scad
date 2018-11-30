@@ -6,7 +6,7 @@ include <lid.scad>;
 include <rotor.scad>;
 include <window.scad>;
 
-draw_complete = 0;
+draw_complete = 1;
 draw_base_universal = 0;
 draw_base_small_motor = 0;
 draw_lid_window = 0;
@@ -14,7 +14,7 @@ draw_lid_no_window = 0;
 draw_latch = 0;
 draw_rotor = 0;
 draw_motor_spacer = 0;
-draw_window = 1;
+draw_window = 0;
 
 if (draw_complete == 1) {
     color("white") base();

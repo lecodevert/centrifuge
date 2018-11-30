@@ -34,3 +34,4 @@ tube_pos = 47.5; // position of tube holders
 
 text1 = "Physique sans";
 text2 = "Frontières";
+font = "Liberation Sans:style=Bold";

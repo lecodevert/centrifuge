@@ -31,10 +31,10 @@ module lid(window = true) {
         }
         translate([0, lid_dia/2 + 11, lid_height - 1.9])
             linear_extrude(height=2)
-                text(text1, size=8, halign="center");
+                text(text1, size=8, halign="center", font=font);
         translate([0, lid_dia/2, lid_height - 1.9])
             linear_extrude(height=2)
-                text(text2, size=8, halign="center");
+                text(text2, size=8, halign="center", font=font);
         translate([0, 0, -0.5])
             cylinder(d=lid_dia - lid_wall_thi, h=lid_height - lid_wall_thi + 1);
         if (window) {
@@ -51,7 +51,7 @@ module lid(window = true) {
         translate([0, hinge_depth - hinge_thi/2, -3.25])
             rotate([0, 90, 0])
                 cylinder(d=3.2, h=100, center=true);
-        translate([0, lid_dia/2 + 9, lid_height/2])
-            cube([inner_dia, 20, lid_height - 6], center=true);
+        translate([- inner_dia/2, 0, -lid_wall_thi])
+            cube([inner_dia, 70, lid_height]);
     }
 }

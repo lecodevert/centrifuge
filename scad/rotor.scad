@@ -41,7 +41,7 @@ module rotor() {
             rotate([0, 0, -i*45])
             translate([0, 30, 19])
               linear_extrude(height=2)
-                  text(str(i), halign="center", size=4);
+                  text(str(i), halign="center", size=4, font=font);
         }
     }
 }
