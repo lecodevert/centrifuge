@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include <Adafruit_SoftServo.h>
 
-#define SERVOPIN 4 // Pin for the ESC controller
+#define SERVOPIN 4 // Pin for the ESC
 
 #define POTPIN 3  // analog pin used to connect the potentiometer
 
@@ -12,10 +12,11 @@ void setup() {
   TIMSK |= _BV(OCIE0A);     // Turn on the compare interrupt (below!)
   servo.attach(SERVOPIN);
 
+  // Automatic calibration of the ESC
   servo.write(180);
-  delay(10000);
+  delay(5000);
   servo.write(0);
-  delay(10000);
+  delay(5000);
 }
 
 void loop() {
