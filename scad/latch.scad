@@ -8,8 +8,8 @@ module latch() {
             rotate([-90, 0, 0]) scale([1.2, 1.2, 1.2]) latch_hook();
         translate([ - 3.5  - (total_base_hei - latch_hole_hei), - 5, 2.4])
             cube([10, 10, 5], center=true);
-        translate([ 1 - (total_base_hei - latch_hole_hei), - 2.5, 2])
-            cube([1, 10, 5], center=true);
+        translate([ - 0.6 - (total_base_hei - latch_hole_hei), - 3.8, 2])
+            cube([5, 12.5, 6], center=true);
         // quick and dirty knurling on the knob part for better grip
         for(i = [0 : 18 : 360]) rotate([0, 0, i])
             translate([knob_dia/2, 0, 7.5])
