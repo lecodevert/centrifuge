@@ -56,7 +56,7 @@ First, install [PlatformIO](http://platformio.org) on your platform of choice.
 
 Run in the root directory of this project:
 
-    pio run
+    pio run -t upload
 
 And plug in the Digispark when it tells you to. Upload takes a couple of seconds.
 
