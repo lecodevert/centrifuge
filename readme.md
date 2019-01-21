@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/lecodevert/centrifuge.svg?branch=master)](https://travis-ci.com/lecodevert/centrifuge)
+
 # Physique sans Frontières Centrifuge
 
 ![Photo](doc/main.jpg)

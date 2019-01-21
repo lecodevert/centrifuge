@@ -13,4 +13,4 @@ cache:
   directories:
     - "~/.platformio"
 script:
-  - make
+  - make --always-make
