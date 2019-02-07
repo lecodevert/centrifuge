@@ -8,6 +8,7 @@ base_hei = 20;
 base_thi = 3;
 base_dia = inner_dia + 2 * base_thi;
 total_base_hei = base_hei + base_thi;
+lip_size = 1.5;
 
 hinge_rad = 10;
 hinge_depth = 75;

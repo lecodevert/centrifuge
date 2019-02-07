@@ -61,6 +61,11 @@ module base(mount="universal") {
             // latch knob support
             translate([0, -base_dia/2 + base_thi /2, latch_hole_hei])
                 rotate([90, 0, 0]) cylinder(d=8, h=4, center=true);
+            // Lid inner lip
+            translate([0, 0, base_thi + base_hei + lip_size/2])
+                rotate_extrude(convexity=10)
+                    translate([- lid_dia/2 + base_thi - lip_size/2, 0, 0])
+                        square(lip_size, center=true);
         }
         if (mount == "universal") {
             // Center hole for motor (axle may stick out a bit)
@@ -91,8 +96,8 @@ module base(mount="universal") {
         translate([0, lid_dia/2, 15]) usb_hole();
 
         for(i=[-1,1])
-            translate([i* 30, 30, base_hei/2 + base_thi + 0.5])
-                cube([40, 60, base_hei + 1], center=true);
+            translate([i* 30, 30, base_hei/2 + base_thi + 2.5])
+                cube([40, 60, base_hei + 5], center=true);
         // Latch hole
         translate([0, -base_dia/2 + base_thi /2, latch_hole_hei])
             rotate([90, 0, 0]) cylinder(d=4.2, h=10, center=true);
