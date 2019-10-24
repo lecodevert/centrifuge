@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/lecodevert/centrifuge.svg?branch=master)](https://travis-ci.com/lecodevert/centrifuge)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 # Physique sans Frontières Centrifuge
 
